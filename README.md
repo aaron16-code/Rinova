@@ -1,2 +1,0 @@
-# Rinova
-libreria
