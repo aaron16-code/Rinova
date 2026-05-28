@@ -1,0 +1,42 @@
+package cl.duoc.libro_service.service;
+
+import cl.duoc.libro_service.exception.ResourceNotFoundException;
+import cl.duoc.libro_service.model.Genero;
+import cl.duoc.libro_service.repository.GeneroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+
+@Service
+public class GeneroService {
+
+    @Autowired
+    private GeneroRepository generoRepository;
+
+    public List<Genero> findAll() {
+        return generoRepository.findAll();
+    }
+
+    public Genero findById(String codigo) {
+        return generoRepository.findById(codigo)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Genero con codigo " + codigo + " no encontrado"));
+    }
+
+    public Genero save(Genero genero) {
+        return generoRepository.save(genero);
+    }
+
+    public Genero update(String codigo, Genero genero) {
+        Genero generoActualizar = generoRepository.findById(codigo)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Genero con codigo " + codigo + " no encontrado"));
+        generoActualizar.setTitulo(genero.getTitulo());
+        generoActualizar.setDescripcion(genero.getDescripcion());
+        return generoRepository.save(generoActualizar);
+    }
+
+    public void delete(String codigo) {
+        generoRepository.deleteById(codigo);
+    }
+}

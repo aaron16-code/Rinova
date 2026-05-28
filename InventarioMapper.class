@@ -1,0 +1,24 @@
+package cl.duoc.inventario_service.mapper;
+
+import cl.duoc.inventario_service.dto.InventarioDTO;
+import cl.duoc.inventario_service.model.Inventario;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+public class InventarioMapper {
+
+    public InventarioDTO toDTO(Inventario inventario) {
+        InventarioDTO dto = new InventarioDTO();
+        dto.setId(inventario.getId());
+        dto.setLibroId(inventario.getLibroId());
+        dto.setStock(inventario.getStock());
+        dto.setStockMinimo(inventario.getStockMinimo());
+        return dto;
+    }
+
+    public List<InventarioDTO> toDTOList(List<Inventario> inventarios) {
+        return inventarios.stream().map(this::toDTO).toList();
+    }
+}
