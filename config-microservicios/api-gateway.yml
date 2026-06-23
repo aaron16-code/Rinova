@@ -1,0 +1,90 @@
+server:
+  port: 8090
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: autor
+              uri: lb://autor-service
+              predicates:
+                - Path=/api/v1/autores/**, /v3/api-docs/autor
+              filters:
+                - RewritePath=/v3/api-docs/autor, /v3/api-docs
+
+            - id: libro
+              uri: lb://libro-service
+              predicates:
+                - Path=/api/v1/libros/**, /api/v1/generos/**, /v3/api-docs/libro
+              filters:
+                - RewritePath=/v3/api-docs/libro, /v3/api-docs
+
+            - id: usuario
+              uri: lb://usuario-service
+              predicates:
+                - Path=/api/v1/usuarios/**, /v3/api-docs/usuario
+              filters:
+                - RewritePath=/v3/api-docs/usuario, /v3/api-docs
+
+            - id: inventario
+              uri: lb://inventario-service
+              predicates:
+                - Path=/api/v1/inventario/**, /v3/api-docs/inventario
+              filters:
+                - RewritePath=/v3/api-docs/inventario, /v3/api-docs
+
+            - id: pedido
+              uri: lb://pedido-service
+              predicates:
+                - Path=/api/v1/pedidos/**, /v3/api-docs/pedido
+              filters:
+                - RewritePath=/v3/api-docs/pedido, /v3/api-docs
+
+            - id: pago
+              uri: lb://pago-service
+              predicates:
+                - Path=/api/v1/pagos/**, /v3/api-docs/pago
+              filters:
+                - RewritePath=/v3/api-docs/pago, /v3/api-docs
+
+            - id: resena
+              uri: lb://resena-service
+              predicates:
+                - Path=/api/v1/resenas/**, /v3/api-docs/resena
+              filters:
+                - RewritePath=/v3/api-docs/resena, /v3/api-docs
+
+            - id: notificacion
+              uri: lb://notificacion-service
+              predicates:
+                - Path=/api/v1/notificaciones/**, /v3/api-docs/notificacion
+              filters:
+                - RewritePath=/v3/api-docs/notificacion, /v3/api-docs
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: Autores
+        url: /v3/api-docs/autor
+      - name: Libros
+        url: /v3/api-docs/libro
+      - name: Usuarios
+        url: /v3/api-docs/usuario
+      - name: Inventario
+        url: /v3/api-docs/inventario
+      - name: Pedidos
+        url: /v3/api-docs/pedido
+      - name: Pagos
+        url: /v3/api-docs/pago
+      - name: Reseñas
+        url: /v3/api-docs/resena
+      - name: Notificaciones
+        url: /v3/api-docs/notificacion

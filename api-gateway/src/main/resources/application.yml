@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: api-gateway
+  config:
+    import: optional:configserver:http://config-server:8888,optional:configserver:http://localhost:8888
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: Autores
+        url: /v3/api-docs/autor
+      - name: Libros
+        url: /v3/api-docs/libro
+      - name: Usuarios
+        url: /v3/api-docs/usuario
+      - name: Inventario
+        url: /v3/api-docs/inventario
+      - name: Pedidos
+        url: /v3/api-docs/pedido
+      - name: Pagos
+        url: /v3/api-docs/pago
+      - name: Reseñas
+        url: /v3/api-docs/resena
+      - name: Notificaciones
+        url: /v3/api-docs/notificacion

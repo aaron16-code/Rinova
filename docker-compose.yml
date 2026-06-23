@@ -24,12 +24,19 @@ services:
 
   config-server:
     build:
-      context: ./config-server
+      context: .
+      dockerfile: config-server/Dockerfile
     container_name: config-server
     ports:
       - "8888:8888"
     depends_on:
       - eureka-server
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8888/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
   autor-service:
     build:
@@ -47,7 +54,7 @@ services:
       mysql-db:
         condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
       eureka-server:
         condition: service_started
 
@@ -67,7 +74,7 @@ services:
       mysql-db:
         condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
       eureka-server:
         condition: service_started
 
@@ -87,7 +94,7 @@ services:
       mysql-db:
         condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
       eureka-server:
         condition: service_started
 
@@ -107,7 +114,7 @@ services:
       mysql-db:
         condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
       eureka-server:
         condition: service_started
 
@@ -129,7 +136,7 @@ services:
       mysql-db:
         condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
       eureka-server:
         condition: service_started
       libro-service:
@@ -153,7 +160,7 @@ services:
       mysql-db:
         condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
       eureka-server:
         condition: service_started
 
@@ -173,7 +180,7 @@ services:
       mysql-db:
         condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
       eureka-server:
         condition: service_started
 
@@ -193,7 +200,7 @@ services:
       mysql-db:
         condition: service_healthy
       config-server:
-        condition: service_started
+        condition: service_healthy
       eureka-server:
         condition: service_started
 
@@ -208,7 +215,7 @@ services:
       - "8090:8090"
     depends_on:
       config-server:
-        condition: service_started
+        condition: service_healthy
       eureka-server:
         condition: service_started
       autor-service:

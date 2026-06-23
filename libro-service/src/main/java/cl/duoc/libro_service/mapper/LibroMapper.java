@@ -14,7 +14,7 @@ public class LibroMapper {
         dto.setId(libro.getId());
         dto.setTitulo(libro.getTitulo());
         dto.setIsbn(libro.getIsbn());
-        dto.setGenero(libro.getGenero());
+        dto.setGenero(libro.getGeneroId());
         dto.setAnioPublicacion(libro.getAnioPublicacion());
         dto.setPrecio(libro.getPrecio());
         dto.setAutorId(libro.getAutorId());
